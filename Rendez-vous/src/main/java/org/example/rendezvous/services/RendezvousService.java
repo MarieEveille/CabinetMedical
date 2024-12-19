@@ -2,6 +2,7 @@ package org.example.rendezvous.services;
 
 
 import org.example.rendezvous.models.Rendezvous;
+import org.example.rendezvous.services.CalendarificService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,6 +25,17 @@ public class RendezvousService {
 
         if (!externalServiceClient.isPraticienExists(rendezvous1.getIdPraticien())) {
             throw new IllegalArgumentException("Praticien with ID " + rendezvous1.getIdPraticien() + " does not exist");
+        }
+
+        String holidays = CalendarificService.getHolidays("FR", "2024"); // Pays et année dynamiques
+        //System.out.printf("Holidays : %s\n", holidays);
+        if (rendezvous1 == null || rendezvous1.getDateHeure() == null) {
+            return null;
+        }
+        System.out.printf("Date : %s\n", rendezvous1.getDateHeure().toLocalDate().toString());
+        if (holidays.contains(rendezvous1.getDateHeure().toLocalDate().toString())) {
+            System.out.printf("Le rendez-vous ne peut pas être pris un jour férié\n %s\n", holidays);
+            return null;
         }
 
         rendezvous.add(rendezvous1);
@@ -57,10 +69,11 @@ public class RendezvousService {
 
 
     public Rendezvous updateRendezvous(List<Rendezvous> rendezvous, int id, Rendezvous updatedRendezvous) {
-        Rendezvous rendezvous1 = getRendezvousById(rendezvous, id);
-        rendezvous1.setDate(updatedRendezvous.getDate());
-        rendezvous1.setHeure(updatedRendezvous.getHeure());
-        return rendezvous1;
+//        Rendezvous rendezvous1 = getRendezvousById(rendezvous, id);
+//        rendezvous1.setDate(updatedRendezvous.getDate());
+//        rendezvous1.setHeure(updatedRendezvous.getHeure());
+       // return rendezvous1;
+        return updatedRendezvous;
     }
 
     public Rendezvous deleteRendezvous(List<Rendezvous> rendezvous, int id) {

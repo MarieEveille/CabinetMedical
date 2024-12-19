@@ -1,5 +1,7 @@
 package org.example.rendezvous.models;
 
+import java.time.LocalDateTime;
+
 public class Rendezvous {
 
     private int idRendezvous;
@@ -10,22 +12,19 @@ public class Rendezvous {
 
     private int idPraticien;
 
-    private String date;
-
-    private String heure;
+    private LocalDateTime dateHeure;
 
     public Rendezvous() {
         this.idRendezvous = count;
         count++;
     }
 
-    public Rendezvous(int idPatient, int idPraticien, String date, String heure) {
+    public Rendezvous(int idPatient, int idPraticien, LocalDateTime date) {
         this.idRendezvous = count;
         count++;
         this.idPatient = idPatient;
         this.idPraticien = idPraticien;
-        this.date = date;
-        this.heure = heure;
+        this.dateHeure = date;
     }
 
     public int getId() {
@@ -48,19 +47,12 @@ public class Rendezvous {
         this.idPraticien = idPraticien;
     }
 
-    public String getDate() {
-        return date;
+    public LocalDateTime getDateHeure() {
+        return dateHeure;
     }
 
-    public void setDate(String date) {
-        this.date = date;
+    public void setDateHeure(LocalDateTime date) {
+        this.dateHeure = date;
     }
 
-    public String getHeure() {
-        return heure;
-    }
-
-    public void setHeure(String heure) {
-        this.heure = heure;
-    }
 }

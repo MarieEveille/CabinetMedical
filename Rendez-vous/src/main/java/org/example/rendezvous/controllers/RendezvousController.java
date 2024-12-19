@@ -16,11 +16,7 @@ public class RendezvousController {
     @Autowired
     private RendezvousService rendezvousService;
 
-    private final List<Rendezvous> rendezvous = new ArrayList<>(List.of(
-            new Rendezvous(0, 0, "2021-12-01", "10:00"),
-            new Rendezvous(1, 1, "2021-12-02", "11:00"),
-            new Rendezvous(2, 2, "2021-12-03", "12:00")
-    ));
+    private final List<Rendezvous> rendezvous = new ArrayList<>();
 
     @GetMapping("/all")
     public List<Rendezvous> getAllRendezvous() {

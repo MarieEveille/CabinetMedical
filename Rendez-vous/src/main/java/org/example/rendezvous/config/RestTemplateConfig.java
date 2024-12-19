@@ -1,4 +1,4 @@
-package org.example.rendezvous;
+package org.example.rendezvous.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
