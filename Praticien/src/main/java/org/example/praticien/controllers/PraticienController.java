@@ -62,4 +62,20 @@ public class PraticienController {
         System.out.printf("bool : %b", praticiens.stream().anyMatch(praticien -> praticien.getId() ==id));
         return praticiens.stream().anyMatch(praticien -> praticien.getId() == id);
     }
+
+    @GetMapping("/getDossierForPatient/{id}")
+    public DossierMedical getDossierForPatient(@PathVariable int id) {
+        return dossierMedicalClient.getDossierMedicalByPatient(id);
+    }
+
+    @PostMapping("/createDossierForPatient/{id}/{diagnostic}")
+    public DossierMedical createDossierForPatient(@PathVariable int id, @PathVariable String diagnostic) {
+        return dossierMedicalClient.createDossierMedical(id, diagnostic);
+    }
+
+    @PutMapping("/updateDossierForPatient/{id}")
+    public DossierMedical updateDossierForPatient(@PathVariable int id,
+                                                  @RequestBody DossierMedical dossierMedical) {
+        return dossierMedicalClient.updateDossierMedical(id, dossierMedical);
+    }
 }

@@ -17,4 +17,20 @@ public class DossierMedicalClient {
         String url = "http://localhost:8082/api/dossier-medical/getDossierMedical/" + id; // Remplacez par l'URL réelle du microservice
         return restTemplate.getForObject(url, DossierMedical.class);
     }
+
+    public DossierMedical getDossierMedicalByPatient(int idPatient) {
+        String url = "http://localhost:8082/api/dossier-medical/getDossierMedicalByPatient/" + idPatient; // Remplacez par l'URL réelle du microservice
+        return restTemplate.getForObject(url, DossierMedical.class);
+    }
+
+    public DossierMedical createDossierMedical(int idPatient, String diagnostic) {
+        String url = "http://localhost:8082/api/dossier-medical/create/" + idPatient + "/" + diagnostic; // Remplacez par l'URL réelle du microservice
+        return restTemplate.postForObject(url, null, DossierMedical.class);
+    }
+
+    public DossierMedical updateDossierMedical(int id, DossierMedical updatedDossierMedical) {
+        String url = "http://localhost:8082/api/dossier-medical/update/" + id; // Remplacez par l'URL réelle du microservice
+        restTemplate.put(url, updatedDossierMedical);
+        return updatedDossierMedical;
+    }
 }

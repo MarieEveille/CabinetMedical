@@ -17,10 +17,7 @@ public class DossierMedicalController {
     @Autowired
     private DossierMedicalService dossierMedicalService;
 
-    private final List<DossierMedical> dossiersMedicaux = new ArrayList<>(List.of(
-            new DossierMedical(0, "Diagnostic 1"),
-            new DossierMedical(1, "Diagnostic 3")
-    ));
+    private final List<DossierMedical> dossiersMedicaux = new ArrayList<>();
 
     @GetMapping("/all")
     public List<DossierMedical> getAllDossiersMedicaux() {

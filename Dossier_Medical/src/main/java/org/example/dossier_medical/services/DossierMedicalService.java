@@ -32,6 +32,9 @@ public class DossierMedicalService {
         if (!PatientServiceClient.isPatientExists(idPatient)) {
             throw new IllegalArgumentException("Patient with id " + idPatient + " does not exist");
         }
+        if(dossiersMedicaux.stream().anyMatch(dossierMedical -> dossierMedical.getIdPatient() == idPatient)) {
+            throw new IllegalArgumentException("Dossier médical déjà existant pour le patient avec l'ID : " + idPatient);
+        }
         DossierMedical dossierMedical = new DossierMedical(idPatient, diagnostic);
         dossiersMedicaux.add(dossierMedical);
         return dossierMedical;
