@@ -16,8 +16,8 @@ public class Patient {
 
 
     public Patient() {
-        count++;
         this.idPatient = count;
+        count++;
     }
 
     public Patient(String name, String firstName, String email, String phone, String address) {

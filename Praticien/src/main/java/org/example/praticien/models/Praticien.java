@@ -11,8 +11,8 @@ public class Praticien {
     private String address;
 
     public Praticien() {
-        count++;
         this.idPraticien = count;
+        count++;
     }
 
     public Praticien(String name, String firstName, String email, String phone, String address) {
