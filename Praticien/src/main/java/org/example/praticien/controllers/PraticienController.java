@@ -3,6 +3,7 @@ package org.example.praticien.controllers;
 
 import org.example.praticien.models.DossierMedical;
 import org.example.praticien.models.Praticien;
+import org.example.praticien.services.DossierMedicalClient;
 import org.example.praticien.services.PraticienService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -14,11 +15,21 @@ import java.util.List;
 @RequestMapping("/api/praticiens")
 public class PraticienController {
 
+    private final DossierMedicalClient dossierMedicalClient;
 
     @Autowired
     private PraticienService praticienService;
 
     private final List<Praticien> praticiens = new ArrayList<>();
+
+    public PraticienController(DossierMedicalClient dossierMedicalClient) {
+        this.dossierMedicalClient = dossierMedicalClient;
+    }
+
+    @GetMapping("/getDossierMedicalFromPraticien/{id}")
+    public DossierMedical getDossierMedicalFromPraticien(@PathVariable int id) {
+        return dossierMedicalClient.getDossierMedicalById(id);
+    }
 
     @GetMapping("/all")
     public List<Praticien> getAllPraticiens() {
@@ -46,8 +57,4 @@ public class PraticienController {
         return true;
     }
 
-    @GetMapping("/getDossier/{id}")
-    public DossierMedical getPraticienByDossier(@PathVariable int id) {
-        return praticienService.getPraticienByDossier(praticiens, id);
-    }
 }

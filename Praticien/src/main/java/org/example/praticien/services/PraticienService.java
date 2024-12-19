@@ -51,12 +51,7 @@ public class PraticienService {
     }
 
 
-    public DossierMedical getPraticienByDossier(List<Praticien> praticiens, int id) {
-        for (Praticien praticien : praticiens) {
-            List<DossierMedical> dossiers = 
-        }
-        return null;
-    }
+
 
 
 }

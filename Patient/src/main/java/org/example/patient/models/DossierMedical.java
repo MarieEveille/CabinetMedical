@@ -1,6 +1,4 @@
-package org.example.dossier_medical.models;
-
-import java.util.List;
+package org.example.patient.models;
 
 public class DossierMedical {
 

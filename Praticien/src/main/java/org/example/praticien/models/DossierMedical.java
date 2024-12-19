@@ -2,7 +2,7 @@ package org.example.praticien.models;
 
 public class DossierMedical {
 
-    private int idDossierMedical;
+    private int id;
     private static int count = 0;
     private int idPatient;
     private String diagnostic;
@@ -10,7 +10,7 @@ public class DossierMedical {
 
 
     public DossierMedical(int idPatient, String diagnostic) {
-        this.idDossierMedical = count;
+        this.id = count;
         count++;
         this.idPatient = idPatient;
         this.diagnostic = diagnostic;
@@ -18,13 +18,13 @@ public class DossierMedical {
 
     public DossierMedical() {
         System.out.println("DossierMedical constructor 0");
-        this.idDossierMedical = count;
+        this.id = count;
         count++;
 
     }
 
     public int getId() {
-        return idDossierMedical;
+        return id;
     }
 
     public int getIdPatient() {

@@ -1,7 +1,9 @@
 package org.example.patient.controllers;
 
 
+import org.example.patient.models.DossierMedical;
 import org.example.patient.models.Patient;
+import org.example.patient.services.DossierMedicalClient;
 import org.example.patient.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -13,10 +15,19 @@ import java.util.List;
 @RequestMapping("/api/patients")
 public class PatientController {
 
+    private final DossierMedicalClient dossierMedicalClient;
+
     @Autowired
     private PatientService patientService;
 
+    public PatientController(DossierMedicalClient dossierMedicalClient) {
+        this.dossierMedicalClient = dossierMedicalClient;
+    }
 
+    @GetMapping("/getDossierMedicalFromPatient/{id}")
+    public DossierMedical getDossierMedicalFromPatient(@PathVariable int id) {
+        return dossierMedicalClient.getDossierMedicalById(id);
+    }
 
     // Liste en mémoire
     private final List<Patient> patients = new ArrayList<>();
