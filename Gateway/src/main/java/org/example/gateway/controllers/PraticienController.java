@@ -133,4 +133,26 @@ public class PraticienController {
         return false;
     }
 
+    @HystrixCommand(fallbackMethod = "fallbackIsPraticienExists")
+    @RequestMapping(value = "/api/praticiens/{id}", method = RequestMethod.GET)
+    public Boolean isPraticienExists(@PathVariable int id) {
+        try {
+            return this.restTemplate.exchange(
+                    "http://praticien-service/api/praticiens/{id}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<Boolean>() {},
+                    id
+            ).getBody();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public Boolean fallbackIsPraticienExists(int id) {
+        System.err.println("Fallback: Unable to check if praticien with id " + id + " exists");
+        return false;
+    }
+
 }

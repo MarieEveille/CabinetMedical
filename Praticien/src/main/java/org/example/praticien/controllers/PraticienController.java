@@ -57,4 +57,9 @@ public class PraticienController {
         return true;
     }
 
+    @GetMapping("/{id}")
+    public Boolean isPraticienExists(@PathVariable int id) {
+        System.out.printf("bool : %b", praticiens.stream().anyMatch(praticien -> praticien.getId() ==id));
+        return praticiens.stream().anyMatch(praticien -> praticien.getId() == id);
+    }
 }

@@ -116,4 +116,21 @@ public class PatientController {
         System.err.println("Fallback: Could not delete patient with ID " + id);
         return false; // Retourne faux en cas d'erreur
     }
+
+    @HystrixCommand(fallbackMethod = "fallbackIsPatientExists")
+    @RequestMapping(value = "/api/patients/{id}", method = RequestMethod.GET)
+    public Boolean isPatientExists(@PathVariable int id) {
+        return this.restTemplate.exchange(
+                "http://patient-service/api/patients/{id}",
+                HttpMethod.GET,
+                null,
+                new ParameterizedTypeReference<Boolean>() {},
+                id
+        ).getBody();
+    }
+
+    public Boolean fallbackIsPatientExists(int id) {
+        System.err.println("Fallback: Could not check if patient exists with ID " + id);
+        return false;
+    }
 }
