@@ -1,4 +1,4 @@
-package org.example.rendezvous.models;
+package org.example.gateway.models;
 
 import java.time.LocalDateTime;
 

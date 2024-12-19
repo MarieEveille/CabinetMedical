@@ -69,11 +69,9 @@ public class RendezvousService {
 
 
     public Rendezvous updateRendezvous(List<Rendezvous> rendezvous, int id, Rendezvous updatedRendezvous) {
-//        Rendezvous rendezvous1 = getRendezvousById(rendezvous, id);
-//        rendezvous1.setDate(updatedRendezvous.getDate());
-//        rendezvous1.setHeure(updatedRendezvous.getHeure());
-       // return rendezvous1;
-        return updatedRendezvous;
+        Rendezvous rendezvous1 = getRendezvousById(rendezvous, id);
+        rendezvous1.setDateHeure(updatedRendezvous.getDateHeure());
+        return rendezvous1;
     }
 
     public Rendezvous deleteRendezvous(List<Rendezvous> rendezvous, int id) {
