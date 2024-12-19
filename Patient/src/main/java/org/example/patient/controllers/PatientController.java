@@ -19,10 +19,7 @@ public class PatientController {
 
 
     // Liste en mémoire
-    private final List<Patient> patients = new ArrayList<>(List.of(
-            new Patient("Dupont", "Jean", "jean.dupont@example.com", "0102030405", "10 rue des Lilas"),
-            new Patient("Durand", "Marie", "marie.durand@example.com", "0607080910", "20 avenue des Roses")
-    ));
+    private final List<Patient> patients = new ArrayList<>();
 
     @GetMapping("/all")
     public List<Patient> getAllPatients() {
@@ -48,5 +45,10 @@ public class PatientController {
     public Boolean deletePatient(@PathVariable int id) {
         patientService.deletePatient(patients, id);
         return true;
+    }
+
+    @GetMapping("/{id}")
+    public boolean isPatientExists(@PathVariable int id) {
+        return patients.stream().anyMatch(patient -> patient.getId() == id);
     }
 }

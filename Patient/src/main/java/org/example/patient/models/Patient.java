@@ -1,8 +1,11 @@
 package org.example.patient.models;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Patient {
 
-    private int idPatient;
+    @JsonProperty("id") // Mappe la clé "id" du JSON au champ "id"
+    private int id;
 
     private static int count = 0;
     private String name;
@@ -16,13 +19,11 @@ public class Patient {
 
 
     public Patient() {
-        this.idPatient = count;
-        count++;
+        this.id = ++count;
     }
 
     public Patient(String name, String firstName, String email, String phone, String address) {
-        this.idPatient = count;
-        count++;
+        this.id = ++count;
         this.name = name;
         this.firstName = firstName;
         this.email = email;
@@ -31,7 +32,11 @@ public class Patient {
     }
 
     public int getId() {
-        return idPatient;
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id; // Permet de setter l'ID lors de la désérialisation
     }
 
 

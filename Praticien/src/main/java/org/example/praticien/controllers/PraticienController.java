@@ -1,6 +1,7 @@
 package org.example.praticien.controllers;
 
 
+import org.example.praticien.models.DossierMedical;
 import org.example.praticien.models.Praticien;
 import org.example.praticien.services.PraticienService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,7 @@ public class PraticienController {
     @Autowired
     private PraticienService praticienService;
 
-    private final List<Praticien> praticiens = new ArrayList<>(List.of(
-            new Praticien("Dupont", "Jean", "dupont.jean@mail.com", "0102030405", "10 rue des Lilas"),
-            new Praticien("Durand", "Marie", "durand.marie@mail.com", "0607080910", "20 avenue des Roses"),
-            new Praticien("Martin", "Pierre", "martin.pierre@mail.com", "0203040506", "30 rue des Lilas")
-    ));
+    private final List<Praticien> praticiens = new ArrayList<>();
 
     @GetMapping("/all")
     public List<Praticien> getAllPraticiens() {
@@ -29,7 +26,7 @@ public class PraticienController {
     }
 
     @GetMapping("/getPraticien/{id}")
-    public String getPraticienById(@PathVariable int id) {
+    public Praticien getPraticienById(@PathVariable int id) {
         return praticienService.getPraticienById(praticiens, id);
     }
 
@@ -47,5 +44,10 @@ public class PraticienController {
     public Boolean deletePraticien(@PathVariable int id) {
         praticienService.deletePraticien(praticiens, id);
         return true;
+    }
+
+    @GetMapping("/getDossier/{id}")
+    public DossierMedical getPraticienByDossier(@PathVariable int id) {
+        return praticienService.getPraticienByDossier(praticiens, id);
     }
 }

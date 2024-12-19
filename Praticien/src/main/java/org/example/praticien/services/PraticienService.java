@@ -1,5 +1,6 @@
 package org.example.praticien.services;
 
+import org.example.praticien.models.DossierMedical;
 import org.example.praticien.models.Praticien;
 import org.springframework.stereotype.Service;
 
@@ -12,13 +13,13 @@ public class PraticienService {
         return praticiens;
     }
 
-    public String getPraticienById(List<Praticien> praticiens, int id) {
+    public Praticien getPraticienById(List<Praticien> praticiens, int id) {
         for (Praticien praticien : praticiens) {
             if (praticien.getId() == id) {
-                return praticien.toString();
+                return praticien;
             }
         }
-        return "Praticien not found";
+        return null;
     }
 
     public Praticien createPraticien(List<Praticien> praticiens, Praticien praticien) {
@@ -47,6 +48,14 @@ public class PraticienService {
                 return;
             }
         }
+    }
+
+
+    public DossierMedical getPraticienByDossier(List<Praticien> praticiens, int id) {
+        for (Praticien praticien : praticiens) {
+            List<DossierMedical> dossiers = 
+        }
+        return null;
     }
 
 

@@ -37,9 +37,9 @@ public class DossierMedicalController {
         return dossierMedicalService.getDossierMedicalByPatient(dossiersMedicaux, idPatient);
     }
 
-    @PostMapping("/create")
-    public DossierMedical createDossierMedical(@RequestBody DossierMedical dossierMedical) {
-        return dossierMedicalService.createDossierMedical(dossiersMedicaux, dossierMedical);
+    @PostMapping("/create/{idPatient}/{diagnostic}")
+    public DossierMedical createDossierMedical(@PathVariable int idPatient, @PathVariable String diagnostic) {
+        return dossierMedicalService.createDossierMedical(dossiersMedicaux, idPatient, diagnostic);
     }
 
     @PutMapping("/update/{id}")
@@ -52,4 +52,6 @@ public class DossierMedicalController {
         dossierMedicalService.deleteDossierMedical(dossiersMedicaux, id);
         return true;
     }
+
+
 }

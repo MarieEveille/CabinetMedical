@@ -1,4 +1,4 @@
-package org.example.praticien.models;
+package org.example.gateway.models;
 
 public class Praticien {
 

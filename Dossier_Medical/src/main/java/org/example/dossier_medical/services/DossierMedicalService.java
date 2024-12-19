@@ -3,6 +3,7 @@ package org.example.dossier_medical.services;
 
 import org.example.dossier_medical.models.DossierMedical;
 import org.springframework.stereotype.Service;
+import org.example.dossier_medical.PatientServiceClient;
 
 import java.util.List;
 
@@ -27,7 +28,11 @@ public class DossierMedicalService {
                 .orElseThrow(() -> new RuntimeException("Dossier médical introuvable pour le patient avec l'ID : " + idPatient));
     }
 
-    public DossierMedical createDossierMedical(List<DossierMedical> dossiersMedicaux, DossierMedical dossierMedical) {
+    public DossierMedical createDossierMedical(List<DossierMedical> dossiersMedicaux, int idPatient, String diagnostic) {
+        if (!PatientServiceClient.isPatientExists(idPatient)) {
+            throw new IllegalArgumentException("Patient with id " + idPatient + " does not exist");
+        }
+        DossierMedical dossierMedical = new DossierMedical(idPatient, diagnostic);
         dossiersMedicaux.add(dossierMedical);
         return dossierMedical;
     }

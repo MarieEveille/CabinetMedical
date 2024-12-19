@@ -1,23 +1,29 @@
-package org.example.praticien.models;
+package org.example.gateway.models;
 
-public class Praticien {
+import com.fasterxml.jackson.annotation.JsonProperty;
 
+public class Patient {
+
+    @JsonProperty("id") // Mappe la clé "id" du JSON au champ "id"
     private int id;
+
     private static int count = 0;
     private String name;
+
     private String firstName;
+
     private String email;
     private String phone;
     private String address;
 
-    public Praticien() {
-        this.id = count;
-        count++;
+
+
+    public Patient() {
+        this.id = ++count;
     }
 
-    public Praticien(String name, String firstName, String email, String phone, String address) {
-        this.id = count;
-        count++;
+    public Patient(String name, String firstName, String email, String phone, String address) {
+        this.id = ++count;
         this.name = name;
         this.firstName = firstName;
         this.email = email;
@@ -28,6 +34,11 @@ public class Praticien {
     public int getId() {
         return id;
     }
+
+    public void setId(int id) {
+        this.id = id; // Permet de setter l'ID lors de la désérialisation
+    }
+
 
     public String getName() {
         return name;
@@ -68,5 +79,4 @@ public class Praticien {
     public void setAddress(String address) {
         this.address = address;
     }
-
 }
