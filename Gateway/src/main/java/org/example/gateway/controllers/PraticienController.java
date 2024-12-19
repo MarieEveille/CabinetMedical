@@ -2,6 +2,7 @@ package org.example.gateway.controllers;
 
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
+import org.example.gateway.models.DossierMedical;
 import org.example.gateway.models.Praticien;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.loadbalancer.LoadBalanced;
@@ -153,6 +154,74 @@ public class PraticienController {
     public Boolean fallbackIsPraticienExists(int id) {
         System.err.println("Fallback: Unable to check if praticien with id " + id + " exists");
         return false;
+    }
+
+    @HystrixCommand(fallbackMethod = "fallbackGetDossierForPatient")
+    @RequestMapping(value = "/api/praticiens/getDossierForPatient/{id}", method = RequestMethod.GET)
+    public DossierMedical getDossierForPatient(@PathVariable int id) {
+        try {
+            return this.restTemplate.exchange(
+                    "http://praticien-service/api/praticiens/getDossierForPatient/{id}",
+                    HttpMethod.GET,
+                    null,
+                    new ParameterizedTypeReference<DossierMedical>() {},
+                    id
+            ).getBody();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public DossierMedical fallbackGetDossierForPatient(int id) {
+        System.err.println("Fallback: Unable to get dossier for patient with id " + id);
+        return null;
+    }
+
+    @HystrixCommand(fallbackMethod = "fallbackCreateDossierMedical")
+    @RequestMapping(value = "/api/praticiens/createDossierMedical/{idPatient}/{diagnostic}", method = RequestMethod.POST)
+    public DossierMedical createDossierMedical(@PathVariable int idPatient, @PathVariable String diagnostic) {
+        try {
+            return this.restTemplate.exchange(
+                    "http://praticien-service/api/praticiens/createDossierForPatient/{idPatient}/{diagnostic}",
+                    HttpMethod.POST,
+                    null,
+                    new ParameterizedTypeReference<DossierMedical>() {},
+                    idPatient,
+                    diagnostic
+            ).getBody();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public DossierMedical fallbackCreateDossierMedical(int idPatient, String diagnostic) {
+        System.err.println("Fallback: Unable to create dossier for patient with id " + idPatient);
+        return null;
+    }
+
+    @HystrixCommand(fallbackMethod = "fallbackUpdateDossierMedical")
+    @RequestMapping(value = "/api/praticiens/updateDossierMedical/{id}", method = RequestMethod.PUT)
+    public DossierMedical updateDossierMedical(@PathVariable int id, @RequestBody DossierMedical updatedDossierMedical) {
+        try {
+            HttpEntity<DossierMedical> requestEntity = new HttpEntity<>(updatedDossierMedical);
+            return this.restTemplate.exchange(
+                    "http://praticien-service/api/praticiens/updateDossierForPatient/{id}",
+                    HttpMethod.PUT,
+                    requestEntity,
+                    new ParameterizedTypeReference<DossierMedical>() {},
+                    id
+            ).getBody();
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+            return null;
+        }
+    }
+
+    public DossierMedical fallbackUpdateDossierMedical(int id, DossierMedical updatedDossierMedical) {
+        System.err.println("Fallback: Unable to update dossier with id " + id);
+        return null;
     }
 
 }
